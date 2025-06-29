@@ -17,7 +17,14 @@ import {
   Database,
   Globe,
   Shield,
-  Cpu
+  Cpu,
+  Play,
+  Download,
+  ExternalLink,
+  Video,
+  BookMarked,
+  FileCode,
+  Users
 } from 'lucide-react';
 
 export function Dashboard() {
@@ -66,6 +73,92 @@ export function Dashboard() {
       color: 'bg-orange-500',
       icon: Code2,
       description: '编程实现与调试'
+    }
+  ];
+
+  // 各试卷知识点和学习资源
+  const paperKnowledgePoints = [
+    {
+      paper: 'Paper 1',
+      title: '计算机系统理论',
+      color: 'border-blue-200 bg-blue-50',
+      headerColor: 'bg-blue-600',
+      topics: [
+        { name: '数据表示', status: 'mastered', progress: 92 },
+        { name: '通信与网络', status: 'good', progress: 85 },
+        { name: '硬件', status: 'good', progress: 78 },
+        { name: '处理器基础', status: 'needs-work', progress: 65 },
+        { name: '系统软件', status: 'weak', progress: 56 },
+        { name: '安全性', status: 'needs-work', progress: 63 },
+        { name: '伦理与法律', status: 'mastered', progress: 88 },
+        { name: '数据库', status: 'good', progress: 74 }
+      ],
+      resources: [
+        { type: 'video', title: 'Paper 1 核心概念讲解', duration: '45分钟', icon: Video },
+        { type: 'notes', title: '理论知识点总结', pages: '32页', icon: BookMarked },
+        { type: 'practice', title: '专项练习题集', questions: '150题', icon: Target },
+        { type: 'exam', title: '历年真题解析', papers: '5套', icon: FileText }
+      ]
+    },
+    {
+      paper: 'Paper 2',
+      title: '基础问题解决',
+      color: 'border-green-200 bg-green-50',
+      headerColor: 'bg-green-600',
+      topics: [
+        { name: '算法设计', status: 'good', progress: 82 },
+        { name: '数据结构', status: 'good', progress: 79 },
+        { name: '编程概念', status: 'mastered', progress: 91 },
+        { name: '问题分解', status: 'needs-work', progress: 68 },
+        { name: '伪代码', status: 'good', progress: 75 },
+        { name: '流程图', status: 'mastered', progress: 89 }
+      ],
+      resources: [
+        { type: 'video', title: '算法思维训练', duration: '60分钟', icon: Video },
+        { type: 'code', title: '伪代码模板库', templates: '25个', icon: FileCode },
+        { type: 'practice', title: '逻辑推理练习', questions: '80题', icon: Brain },
+        { type: 'interactive', title: '在线算法可视化', tools: '12个', icon: Play }
+      ]
+    },
+    {
+      paper: 'Paper 3',
+      title: '高级理论',
+      color: 'border-purple-200 bg-purple-50',
+      headerColor: 'bg-purple-600',
+      topics: [
+        { name: '高级数据结构', status: 'needs-work', progress: 58 },
+        { name: '算法复杂度', status: 'weak', progress: 45 },
+        { name: '数据库设计', status: 'needs-work', progress: 62 },
+        { name: '网络协议', status: 'good', progress: 71 },
+        { name: '系统架构', status: 'weak', progress: 48 },
+        { name: '软件工程', status: 'needs-work', progress: 66 }
+      ],
+      resources: [
+        { type: 'video', title: '高级概念深度解析', duration: '90分钟', icon: Video },
+        { type: 'notes', title: '理论框架图解', diagrams: '45个', icon: BookMarked },
+        { type: 'case', title: '实际案例分析', cases: '15个', icon: Users },
+        { type: 'exam', title: '高难度真题集', papers: '8套', icon: FileText }
+      ]
+    },
+    {
+      paper: 'Paper 4',
+      title: '实践编程',
+      color: 'border-orange-200 bg-orange-50',
+      headerColor: 'bg-orange-600',
+      topics: [
+        { name: 'Python编程', status: 'good', progress: 76 },
+        { name: '算法实现', status: 'needs-work', progress: 64 },
+        { name: '数据处理', status: 'good', progress: 72 },
+        { name: '文件操作', status: 'needs-work', progress: 58 },
+        { name: '调试技巧', status: 'weak', progress: 42 },
+        { name: '代码优化', status: 'weak', progress: 39 }
+      ],
+      resources: [
+        { type: 'video', title: 'Python编程实战', duration: '120分钟', icon: Video },
+        { type: 'code', title: '代码示例库', examples: '50个', icon: FileCode },
+        { type: 'practice', title: 'IDE在线练习', exercises: '30个', icon: Code2 },
+        { type: 'download', title: '开发环境配置', guide: '完整指南', icon: Download }
+      ]
     }
   ];
 
@@ -137,6 +230,26 @@ export function Dashboard() {
     }
   ];
 
+  const getTopicStatusColor = (status: string) => {
+    switch (status) {
+      case 'mastered': return 'bg-green-100 text-green-700 border-green-200';
+      case 'good': return 'bg-blue-100 text-blue-700 border-blue-200';
+      case 'needs-work': return 'bg-yellow-100 text-yellow-700 border-yellow-200';
+      case 'weak': return 'bg-red-100 text-red-700 border-red-200';
+      default: return 'bg-gray-100 text-gray-700 border-gray-200';
+    }
+  };
+
+  const getTopicStatusLabel = (status: string) => {
+    switch (status) {
+      case 'mastered': return '已掌握';
+      case 'good': return '良好';
+      case 'needs-work': return '需加强';
+      case 'weak': return '薄弱';
+      default: return '未知';
+    }
+  };
+
   const getDifficultyLabel = (difficulty: string) => {
     switch (difficulty) {
       case 'basic': return '基础';
@@ -182,66 +295,157 @@ export function Dashboard() {
         ))}
       </div>
 
+      {/* Paper Progress - 主要显示区域 */}
+      <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 mb-8">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl font-bold text-gray-800">试卷进度概览</h2>
+          <Link to="/practice" className="text-blue-600 hover:text-blue-700 text-sm font-medium">
+            开始练习
+          </Link>
+        </div>
+        
+        <div className="grid md:grid-cols-2 gap-6">
+          {paperProgress.map((paper, index) => (
+            <div key={index} className="p-6 bg-gradient-to-br from-gray-50 to-white rounded-xl border border-gray-100 hover:shadow-md transition-all duration-200">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center space-x-3">
+                  <div className={`p-2 rounded-lg ${paper.color.replace('bg-', 'bg-').replace('-500', '-100')}`}>
+                    <paper.icon className={`h-5 w-5 ${paper.color.replace('bg-', 'text-')}`} />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-800">{paper.paper}</h3>
+                    <p className="text-sm text-gray-600">{paper.title}</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-2xl font-bold text-gray-800">{paper.progress}%</div>
+                  <div className="text-xs text-gray-600">完成度</div>
+                </div>
+              </div>
+              
+              <p className="text-sm text-gray-600 mb-4">{paper.description}</p>
+              
+              <div className="space-y-3">
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div 
+                    className={`h-2 rounded-full ${paper.color}`}
+                    style={{ width: `${paper.progress}%` }}
+                  ></div>
+                </div>
+                
+                <div className="flex justify-between text-sm text-gray-600">
+                  <span>{paper.completedQuestions}/{paper.totalQuestions} 题</span>
+                  <span>平均分: {paper.averageScore}%</span>
+                </div>
+              </div>
+              
+              <Link
+                to="/practice"
+                className="mt-4 w-full flex items-center justify-center px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition-colors duration-200 group"
+              >
+                继续练习
+                <ChevronRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 新增：各试卷知识点和学习资源 */}
+      <div className="grid lg:grid-cols-2 gap-8 mb-8">
+        {paperKnowledgePoints.map((paperData, index) => (
+          <div key={index} className={`rounded-2xl shadow-lg border-2 ${paperData.color} overflow-hidden`}>
+            {/* 试卷标题头部 */}
+            <div className={`${paperData.headerColor} text-white p-4`}>
+              <h3 className="text-lg font-bold">{paperData.paper}</h3>
+              <p className="text-sm opacity-90">{paperData.title}</p>
+            </div>
+
+            <div className="p-6">
+              {/* 知识点列表 */}
+              <div className="mb-6">
+                <h4 className="font-semibold text-gray-800 mb-4 flex items-center">
+                  <Target className="h-4 w-4 mr-2" />
+                  知识点掌握情况
+                </h4>
+                <div className="grid grid-cols-2 gap-3">
+                  {paperData.topics.map((topic, topicIndex) => (
+                    <div key={topicIndex} className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-100">
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-sm font-medium text-gray-700">{topic.name}</span>
+                          <span className="text-xs font-bold text-gray-800">{topic.progress}%</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <div className="flex-1 bg-gray-200 rounded-full h-1.5">
+                            <div 
+                              className={`h-1.5 rounded-full ${
+                                topic.status === 'mastered' ? 'bg-green-500' :
+                                topic.status === 'good' ? 'bg-blue-500' :
+                                topic.status === 'needs-work' ? 'bg-yellow-500' :
+                                'bg-red-500'
+                              }`}
+                              style={{ width: `${topic.progress}%` }}
+                            ></div>
+                          </div>
+                          <span className={`text-xs px-2 py-0.5 rounded-full border ${getTopicStatusColor(topic.status)}`}>
+                            {getTopicStatusLabel(topic.status)}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* 学习资源 */}
+              <div>
+                <h4 className="font-semibold text-gray-800 mb-4 flex items-center">
+                  <BookOpen className="h-4 w-4 mr-2" />
+                  学习资源
+                </h4>
+                <div className="space-y-3">
+                  {paperData.resources.map((resource, resourceIndex) => (
+                    <div key={resourceIndex} className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-100 hover:border-gray-200 hover:shadow-sm transition-all duration-200 cursor-pointer group">
+                      <div className="flex items-center space-x-3">
+                        <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-gray-200 transition-colors duration-200">
+                          <resource.icon className="h-4 w-4 text-gray-600" />
+                        </div>
+                        <div>
+                          <div className="font-medium text-gray-800 group-hover:text-blue-600 transition-colors duration-200">
+                            {resource.title}
+                          </div>
+                          <div className="text-sm text-gray-600">
+                            {resource.duration && `时长: ${resource.duration}`}
+                            {resource.pages && `页数: ${resource.pages}`}
+                            {resource.questions && `题目: ${resource.questions}`}
+                            {resource.papers && `试卷: ${resource.papers}`}
+                            {resource.templates && `模板: ${resource.templates}`}
+                            {resource.tools && `工具: ${resource.tools}`}
+                            {resource.diagrams && `图解: ${resource.diagrams}`}
+                            {resource.cases && `案例: ${resource.cases}`}
+                            {resource.examples && `示例: ${resource.examples}`}
+                            {resource.exercises && `练习: ${resource.exercises}`}
+                            {resource.guide && resource.guide}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <ExternalLink className="h-4 w-4 text-gray-400 group-hover:text-blue-600 transition-colors duration-200" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
       {/* Main Content Grid */}
       <div className="grid lg:grid-cols-3 gap-8">
         {/* Left Column */}
         <div className="lg:col-span-2 space-y-8">
-          {/* Paper Progress - 主要显示区域 */}
-          <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-gray-800">试卷进度概览</h2>
-              <Link to="/practice" className="text-blue-600 hover:text-blue-700 text-sm font-medium">
-                开始练习
-              </Link>
-            </div>
-            
-            <div className="grid md:grid-cols-2 gap-6">
-              {paperProgress.map((paper, index) => (
-                <div key={index} className="p-6 bg-gradient-to-br from-gray-50 to-white rounded-xl border border-gray-100 hover:shadow-md transition-all duration-200">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center space-x-3">
-                      <div className={`p-2 rounded-lg ${paper.color.replace('bg-', 'bg-').replace('-500', '-100')}`}>
-                        <paper.icon className={`h-5 w-5 ${paper.color.replace('bg-', 'text-')}`} />
-                      </div>
-                      <div>
-                        <h3 className="font-bold text-gray-800">{paper.paper}</h3>
-                        <p className="text-sm text-gray-600">{paper.title}</p>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-2xl font-bold text-gray-800">{paper.progress}%</div>
-                      <div className="text-xs text-gray-600">完成度</div>
-                    </div>
-                  </div>
-                  
-                  <p className="text-sm text-gray-600 mb-4">{paper.description}</p>
-                  
-                  <div className="space-y-3">
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div 
-                        className={`h-2 rounded-full ${paper.color}`}
-                        style={{ width: `${paper.progress}%` }}
-                      ></div>
-                    </div>
-                    
-                    <div className="flex justify-between text-sm text-gray-600">
-                      <span>{paper.completedQuestions}/{paper.totalQuestions} 题</span>
-                      <span>平均分: {paper.averageScore}%</span>
-                    </div>
-                  </div>
-                  
-                  <Link
-                    to="/practice"
-                    className="mt-4 w-full flex items-center justify-center px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition-colors duration-200 group"
-                  >
-                    继续练习
-                    <ChevronRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-
           {/* Topic Progress - 次要显示区域 */}
           <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
             <div className="flex items-center justify-between mb-6">
